@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LibreScoreAPP · 全格式乐谱下载器</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23143b2c'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%234ade80'%3E%E2%99%AA%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="glow"></div>
+    <header>
+      <div class="brand">
+        <span class="logo">♪</span>
+        <div>
+          <h1>LibreScoreAPP</h1>
+          <p>MuseScore 全格式下载器 · MSCZ / MSCX / MusicXML / MIDI / PDF / MP3 / FLAC / OGG</p>
+        </div>
+      </div>
+      <div class="status" id="status">连接中…</div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1 · 找谱 / 贴链接</h2>
+        <div class="row">
+          <input id="q" type="text" placeholder="搜索曲名或作者（走官方移动端 API，不需要过 Cloudflare）" autocomplete="off" />
+          <button id="searchBtn">搜索</button>
+        </div>
+        <div class="results" id="results"></div>
+        <div class="row" style="margin-top: 10px">
+          <input id="url" type="text" placeholder="https://musescore.com/user/xxxxx/scores/1234567" autocomplete="off" />
+          <button id="resolve" class="primary">解析</button>
+        </div>
+        <div class="meta" id="meta"></div>
+        <div class="preview" id="preview"></div>
+        <details class="adv">
+          <summary>高级：Cookie / Token（可选）</summary>
+          <label>musescore.com Cookie（绕过会员/登录限制时用）<input id="cookie" type="text" placeholder="留空则用环境变量 MUSESCORE_COOKIE" /></label>
+          <label>官方 App client token（api.musescore.com 的 token 参数）<input id="token" type="text" placeholder="留空则尝试 LibreScore broker 自动获取" /></label>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>1.5 · 自动导入（监听下载文件夹）</h2>
+        <p class="hint" id="inboxHint">正在检查…</p>
+        <div class="results" id="inbox"></div>
+      </section>
+
+      <section class="card">
+        <h2>2 · 取源文件</h2>
+        <p class="hint">原生 MSCZ 是「母版」，拿到它之后本地引擎可以离线生成任何格式；拿不到时也能用站点直下的 MP3 / MIDI / PDF。</p>
+        <div class="row wrap">
+          <button id="getBrowser" class="primary">用浏览器取源文件（自动过 Cloudflare）</button>
+          <button id="getMscz">获取 MSCZ（HTTP 直取）</button>
+          <button id="getPdf">站点 PDF（逐页拼装）</button>
+          <button id="getMp3">MP3</button>
+          <button id="getMidi">MIDI</button>
+          <button id="probe">探测接口矩阵</button>
+        </div>
+        <div class="source" id="source"></div>
+        <div class="row" style="margin-top: 12px">
+          <input
+            id="dlurl"
+            type="text"
+            placeholder="也可粘贴站点直链：https://musescore.com/score/download/index?score_id=…&type=mscz&h=…"
+          />
+          <button id="dlImport">导入直链</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3 · 转换与下载</h2>
+        <div class="formats" id="formats"></div>
+        <div class="row wrap">
+          <button id="convert" class="primary" disabled>转换并打包下载 ZIP</button>
+          <button id="all">一键：MSCZ + 全部格式</button>
+          <label class="inline"><input type="checkbox" id="parts" /> 同时导出分谱</label>
+        </div>
+        <p class="hint" id="convertHint">先获取 MSCZ，或把 .mscz/.mscx/.musicxml/.mxl/.mid 拖到下面的投放区。</p>
+        <div id="drop" class="drop">
+          <strong>把乐谱文件拖到这里</strong>
+          <span>.mscz / .mscx / .musicxml / .mxl / .mid</span>
+          <input id="file" type="file" accept=".mscz,.mscx,.musicxml,.mxl,.xml,.mid,.midi" hidden />
+        </div>
+      </section>
+
+      <section class="card log-card">
+        <h2>运行日志</h2>
+        <pre id="log"></pre>
+      </section>
+    </main>
+
+    <footer>
+      <span>本地运行 · 127.0.0.1:8787 · 不上传任何数据</span>
+      <a href="/librescore-all.user.js" download>下载配套油猴脚本</a>
+    </footer>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

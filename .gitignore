@@ -1,0 +1,8 @@
+﻿node_modules/
+.cache/
+downloads/
+.watch-test*/
+test/out/
+*.log
+.DS_Store
+Thumbs.db

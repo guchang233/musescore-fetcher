@@ -1,0 +1,19 @@
+﻿{
+    "name":  "musescore-fetcher",
+    "version":  "1.0.0",
+    "private":  true,
+    "type":  "module",
+    "description":  "MuseScore all-format fetcher: userscript for mscz/mxl/mid/mp3/pdf + local converter (12 formats)",
+    "scripts":  {
+                    "start":  "node server/index.mjs",
+                    "demo":  "node test/convert-demo.mjs"
+                },
+    "dependencies":  {
+                         "@librescore/fonts":  "^0.4.1",
+                         "@librescore/sf3":  "^0.8.0",
+                         "jszip":  "^3.10.1",
+                         "pdf-lib":  "^1.17.1",
+                         "puppeteer-core":  "^25.17.0",
+                         "webmscore":  "^1.2.1"
+                     }
+}
